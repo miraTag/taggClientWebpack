@@ -1,8 +1,8 @@
-import './style.css'
-import Icon from './img.png';
-import Notes from './data.csv';
-import yaml from './data.yaml'; //swagger
-import json from './data.json5';
+
+import Icon from '../img/img.png';
+import Notes from './data/data.csv';
+import yaml from './data/data.yaml'; //swagger
+import json from './data/data.json5';
 import printMe from './print.js';
 
 
