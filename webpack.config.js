@@ -1,20 +1,28 @@
 const path = require('path');
 const yaml = require('yamljs'); //for dev dashboard
 const json5 = require('json5'); //for multi file entry point
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //try this for also multi file entry
 
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //try this for also multi file entry
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 const devMode = process.env.NODE_ENV !== "production";
 
 
 const plugins = [
-    new HtmlWebpackPlugin,
+    new HtmlWebpackPlugin({
+    filename: 'index.html',
+      inject: true,
+      template: path.resolve(__dirname, '', 'index.html'),
+    }),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // all options are optional
         filename: "[name].css",
         chunkFilename: "[id].css",
+
     }),
 ];
 //The webpack-dev-server provides you with a rudimentary web server and the ability to use live reloading
@@ -29,10 +37,11 @@ module.exports = {
         index: './src/js/index.js',
         print: './src/js/print.js',
     },
-    // devServer: {
-    //     // static: './build',
-    //     path: path.resolve(__dirname, './build')
-    // },
+
+    devServer: {
+        // static: './build',
+        contentBase: path.resolve(__dirname, './build')
+    },
     plugins,
     output: {
         filename: '[name].bundle.js',
