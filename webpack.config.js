@@ -4,10 +4,8 @@ const json5 = require('json5'); //for multi file entry point
 
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //try this for also multi file entry
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const devMode = process.env.NODE_ENV !== "production";
 
 
 const plugins = [
@@ -54,7 +52,6 @@ module.exports = {
         rules: [{
                 test: /\.(sc|le|c)ss$/i,
                 use: [
-                    // devMode ? "style-loader" : 
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
