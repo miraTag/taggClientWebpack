@@ -4,7 +4,7 @@ const json5 = require('json5'); //for multi file entry point
 
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //try this for also multi file entry
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
@@ -28,25 +28,25 @@ const plugins = [
 //The webpack-dev-server provides you with a rudimentary web server and the ability to use live reloading
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
-        'bundle.min.css': [
-            path.resolve(__dirname, 'src/css/style.less'),
-            path.resolve(__dirname, 'src/css/style.scss'),
+        'taggstar': [
+            path.resolve(__dirname, 'src/css/balloons.less'),
           ],
-        index: './src/js/index.js',
-        print: './src/js/print.js',
+          'modules.js': [
+            path.resolve(__dirname, 'src/js/index.js')
+          ]
     },
 
     devServer: {
-        // static: './build',
-        contentBase: path.resolve(__dirname, './build')
+        static: './build',
+        // path: path.resolve(__dirname, './build')
     },
     plugins,
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name]',
         path: path.resolve(__dirname, 'build'),
-        path: path.resolve(__dirname, 'src/es5'),
+        // path: path.resolve(__dirname, 'src/es5'),
         clean: true,
         publicPath: '/',
     },
@@ -54,7 +54,7 @@ module.exports = {
         rules: [{
                 test: /\.(sc|le|c)ss$/i,
                 use: [
-                    devMode ? "style-loader" : 
+                    // devMode ? "style-loader" : 
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
@@ -65,7 +65,6 @@ module.exports = {
                     },
                     "css-loader",
                     "less-loader",
-                    "sass-loader",
                 ],
             },
             {
@@ -105,21 +104,21 @@ module.exports = {
         ],
     },
     optimization: {
-        minimizer: [
-            // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
-            // `...`,
-            new CssMinimizerPlugin(),
-        ],
-        splitChunks: {
-            cacheGroups: {
-                styles: {
-                    name: "styles",
-                    type: "css/mini-extract",
-                    chunks: "all",
-                    enforce: true,
-                },
-            },
-        },
+        // minimizer: [
+        //     // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
+        //     // `...`,
+        //     new CssMinimizerPlugin(),
+        // ],
+        // splitChunks: {
+        //     cacheGroups: {
+        //         styles: {
+        //             name: "styles",
+        //             type: "css/mini-extract",
+        //             chunks: "all",
+        //             enforce: true,
+        //         },
+        //     },
+        // },
 
     },
 };
